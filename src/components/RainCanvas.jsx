@@ -26,8 +26,14 @@ export default function RainCanvas() {
 
     const drawRain = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.strokeStyle = "rgba(200, 220, 255, 0.7)";
-      ctx.lineWidth = 1;
+
+      // 🎨 Branco com leve tom azulado
+      ctx.strokeStyle = "rgba(220, 235, 255, 0.85)";
+      ctx.lineWidth = 2;
+
+      // ✨ Efeito de blur/sombra para dar sensação de movimento
+      ctx.shadowColor = "rgba(180, 200, 255, 0.6)";
+      ctx.shadowBlur = 4;
 
       drops.forEach((drop) => {
         ctx.beginPath();

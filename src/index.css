@@ -13,7 +13,7 @@ body,
 
 body {
   margin: 0;
-  background: linear-gradient(#0f2027, #203a43, #2c5364);
+  background: linear-gradient(#0f2027, #203a43, #2c5364); /* fundo escuro padrão */
   font-family: Arial, sans-serif;
   backdrop-filter: blur(2px);
 }
