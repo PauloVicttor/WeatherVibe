@@ -15,10 +15,8 @@ export default function WeatherScreen() {
 
   const scrollRef = useRef(null);
 
-  const isDay =
-    weather &&
-    Date.now() / 1000 > weather.sys.sunrise &&
-    Date.now() / 1000 < weather.sys.sunset;
+  //Usando o icon da API para definir se é dia ou noite
+  const isDay = weather?.weather?.[0]?.icon?.includes("d");
 
   async function loadWeather(selectedCity) {
     try {
@@ -47,7 +45,7 @@ export default function WeatherScreen() {
     const main = weather.weather[0].main.toLowerCase();
     const description = weather.weather[0].description.toLowerCase();
     const hasRain =
-      weather.rain && (weather.rain["1h"] > 0 || weather.rain["3h"] > 0);
+      weather.rain?.["1h"] > 0 || weather.rain?.["3h"] > 0;
 
     if (
       ["rain", "drizzle", "thunderstorm"].some((cond) => main.includes(cond)) ||
@@ -97,12 +95,14 @@ export default function WeatherScreen() {
 
       <div
         className={`z-10 w-auto max-w-[95%] sm:max-w-3xl mx-auto px-6 sm:px-10 py-6 sm:py-8 rounded-3xl 
-          backdrop-blur-xl bg-white/40 shadow-2xl border border-white/40
+          backdrop-blur-xl bg-white/70 shadow-2xl border border-white/40
           text-center transition-colors duration-500 ${
-            isDay ? "text-slate-900" : "text-white"
-          }`}
+            !weather ? "text-gray-400" : isDay ? "text-gray-500" : "text-[#1e293b]"
+          } font-inter`}
       >
-        <h1 className="text-2xl sm:text-4xl font-bold mb-4">Weather App ☁️</h1>
+        <h1 className="text-2xl sm:text-4xl font-bold mb-4">
+          Weather App ☁️
+        </h1>
 
         {loading && <p className="mt-1 text-sm opacity-80">Carregando clima...</p>}
 
@@ -111,10 +111,12 @@ export default function WeatherScreen() {
             <p className="text-xl sm:text-3xl font-semibold tracking-wide">
               {weather.name}
             </p>
-            <p className="text-5xl sm:text-7xl font-extrabold mt-2 leading-none">
+            {/* Temperatura com efeito prateado */}
+            <p className="flex items-center justify-center gap-2 text-6xl sm:text-8xl font-extrabold mt-2 leading-none 
+                          bg-gradient-to-r from-gray-200 via-gray-400 to-gray-600 bg-clip-text text-transparent">
               {Math.round(weather.main.temp)}°C
             </p>
-            <p className="mt-3 text-sm sm:text-lg capitalize opacity-80 flex items-center justify-center gap-2">
+            <p className="mt-3 text-sm sm:text-lg capitalize flex items-center justify-center gap-2">
               {getWeatherIcon(
                 weather.weather[0].main,
                 weather.weather[0].description,
@@ -163,14 +165,14 @@ export default function WeatherScreen() {
                 return (
                   <div
                     key={day.dt_txt}
-                    className="flex flex-col items-center bg-white/20 rounded-2xl 
-                               p-3 backdrop-blur-md text-sm"
+                    className={`flex flex-col items-center rounded-2xl p-3 backdrop-blur-md text-sm
+                      ${isDay ? "bg-white/30 text-gray-500" : "bg-white/20 text-[#1e293b]"}`}
                   >
                     <span className="font-medium">{weekday}</span>
                     <span className="text-xl font-bold">
                       {Math.round(day.main.temp)}°C
                     </span>
-                    <span className="capitalize text-xs opacity-70 flex items-center gap-1 text-center">
+                    <span className="capitalize text-xs flex items-center gap-1 text-center">
                       {icon} {day.weather[0].description}
                     </span>
                   </div>
@@ -178,13 +180,12 @@ export default function WeatherScreen() {
               })}
             </div>
 
-            {/* Mobile carrossel  */}
+            {/* Mobile carrossel */}
             <div className="relative md:hidden">
               <div
                 ref={scrollRef}
                 className="flex gap-3 overflow-x-auto justify-center scrollbar-hide"
->
-
+              >
                 {forecast.map((day) => {
                   const date = new Date(day.dt_txt);
                   const weekday = date.toLocaleDateString("pt-BR", {
@@ -198,14 +199,14 @@ export default function WeatherScreen() {
                   return (
                     <div
                       key={day.dt_txt}
-                      className="flex-shrink-0 w-24 sm:w-28 flex flex-col items-center 
-                                 bg-white/20 rounded-xl p-2 sm:p-3 backdrop-blur-md text-sm"
+                      className={`flex-shrink-0 w-24 sm:w-28 flex flex-col items-center rounded-xl p-2 sm:p-3 backdrop-blur-md text-sm
+                        ${isDay ? "bg-white/30 text-gray-500" : "bg-white/20 text-[#1e293b]"}`}
                     >
                       <span className="font-medium">{weekday}</span>
                       <span className="text-lg font-bold">
                         {Math.round(day.main.temp)}°C
                       </span>
-                      <span className="capitalize text-xs opacity-70 flex items-center gap-1 text-center">
+                      <span className="capitalize text-xs flex items-center gap-1 text-center">
                         {icon} {day.weather[0].description}
                       </span>
                     </div>
