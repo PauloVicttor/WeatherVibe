@@ -17,3 +17,11 @@ body {
   font-family: Arial, sans-serif;
   backdrop-filter: blur(2px);
 }
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE e Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome e Safari */
+}

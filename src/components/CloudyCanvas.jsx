@@ -15,25 +15,26 @@ export default function CloudyCanvas() {
     resize();
     window.addEventListener("resize", resize);
 
-    // Criar nuvens em camadas
+    // Escala adaptativa para mobile
+    const baseSize = window.innerWidth < 768 ? 60 : 100; // menor em telas pequenas
     const clouds = [];
     for (let i = 0; i < 12; i++) {
       clouds.push({
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight * 0.6,
-        size: 100 + Math.random() * 150,
+        size: baseSize + Math.random() * (window.innerWidth < 768 ? 80 : 150),
         speed: 0.1 + Math.random() * 0.3,
-        opacity: 0.3 + Math.random() * 0.25, // opacidade mais baixa
+        opacity: 0.25 + Math.random() * 0.3,
       });
     }
 
     function drawCloud(x, y, size, opacity) {
       const gradient = ctx.createRadialGradient(
-        x, y, size * 0.3, // núcleo menor
+        x, y, size * 0.3,
         x, y, size
       );
       gradient.addColorStop(0, `rgba(255,255,255,${opacity})`);
-      gradient.addColorStop(1, `rgba(220,220,220,0)`); // transição mais leve
+      gradient.addColorStop(1, `rgba(220,220,220,0)`);
       ctx.fillStyle = gradient;
       ctx.beginPath();
       ctx.arc(x, y, size, 0, Math.PI * 2);
@@ -43,10 +44,10 @@ export default function CloudyCanvas() {
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Fundo cinza‑azulado
+      // Fundo responsivo
       const bg = ctx.createLinearGradient(0, 0, 0, canvas.height);
-      bg.addColorStop(0, "#475569"); // cinza azulado escuro
-      bg.addColorStop(1, "#94a3b8"); // cinza claro
+      bg.addColorStop(0, "#475569");
+      bg.addColorStop(1, "#94a3b8");
       ctx.fillStyle = bg;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -70,5 +71,11 @@ export default function CloudyCanvas() {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="absolute inset-0 z-0" />;
+  // Canvas ocupa toda a tela, responsivo
+  return (
+    <canvas
+      ref={canvasRef}
+      className="fixed top-0 left-0 w-full h-full z-0"
+    />
+  );
 }

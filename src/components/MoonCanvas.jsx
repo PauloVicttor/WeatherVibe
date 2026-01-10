@@ -17,8 +17,9 @@ export default function MoonCanvas() {
 
     let frame = 0;
 
-    // Estrelas fixas para cintilação lenta
-    const stars = Array.from({ length: 200 }, () => ({
+    // Ajuste responsivo: menos estrelas em telas pequenas
+    const starCount = window.innerWidth < 768 ? 100 : 200;
+    const stars = Array.from({ length: starCount }, () => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
       r: Math.random() * 1.5 + 0.5,
@@ -41,10 +42,10 @@ export default function MoonCanvas() {
         ctx.fill();
       });
 
-      // Posição e raio da lua (mais acima)
+      // Posição e raio da lua adaptativo
       const centerX = canvas.width * 0.5;
       const centerY = canvas.height * 0.25;
-      const radius = 160;
+      const radius = window.innerWidth < 768 ? 100 : 160; // menor em mobile
 
       // Glow suave
       const glow = ctx.createRadialGradient(
@@ -73,7 +74,8 @@ export default function MoonCanvas() {
       ctx.fill();
 
       // Textura leve (ruído difuso)
-      for (let i = 0; i < 300; i++) {
+      const textureCount = window.innerWidth < 768 ? 150 : 300;
+      for (let i = 0; i < textureCount; i++) {
         const angle = Math.random() * Math.PI * 2;
         const dist = Math.random() * radius;
         const tx = centerX + Math.cos(angle) * dist;
@@ -112,7 +114,7 @@ export default function MoonCanvas() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 z-0 pointer-events-none"
+      className="fixed top-0 left-0 w-full h-full z-0 pointer-events-none"
     />
   );
 }
