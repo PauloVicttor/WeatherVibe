@@ -164,18 +164,19 @@ export default function WeatherScreen() {
                 );
                 return (
                   <div
-                    key={day.dt_txt}
-                    className={`flex flex-col items-center rounded-2xl p-3 backdrop-blur-md text-sm
-                      ${isDay ? "bg-white/30 text-gray-500" : "bg-white/20 text-[#1e293b]"}`}
-                  >
-                    <span className="font-medium">{weekday}</span>
-                    <span className="text-xl font-bold">
-                      {Math.round(day.main.temp)}°C
-                    </span>
-                    <span className="capitalize text-xs flex items-center gap-1 text-center">
-                      {icon} {day.weather[0].description}
-                    </span>
-                  </div>
+  key={day.dt_txt}
+  className={`flex flex-col items-center rounded-xl p-2 backdrop-blur-md text-xs
+    ${isDay ? "bg-white/20 text-gray-700" : "bg-white/20 text-gray-500"}`}
+>
+  <span className="font-medium">{weekday}</span>
+  <span className="text-lg font-bold">
+    {Math.round(day.main.temp)}°C
+  </span>
+  <span className="capitalize text-[11px] flex items-center gap-1 text-center">
+    {icon} {day.weather[0].description}
+  </span>
+</div>
+
                 );
               })}
             </div>

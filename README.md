@@ -1,16 +1,46 @@
-# React + Vite
+# 🌦️ Weather App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Um aplicativo de previsão do tempo moderno e interativo, desenvolvido com **React + Vite**.  
+Ele exibe a condição climática atual e a previsão para os próximos dias, com efeitos visuais dinâmicos (chuva, sol, nuvens, lua) e um design responsivo.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Funcionalidades
+- 🔍 Busca de cidades para visualizar o clima atual
+- 🌞🌙 Efeitos visuais dinâmicos de acordo com o clima e se é dia/noite
+- 📊 Previsão para os próximos 5 dias
+- 🎨 Interface moderna com gradientes e blur
+- 🖼️ Ícone **favicon** personalizado
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tecnologias utilizadas
+- [React](https://reactjs.org/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- API de clima: [OpenWeatherMap](https://openweathermap.org/)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🚀 Como rodar o projeto
+
+### Pré-requisitos
+- Node.js instalado (versão 18+ recomendada)
+- NPM ou Yarn
+
+### Passos
+```bash
+# Clone o repositório
+git clone https://github.com/PauloVicttor/WeatherVibe.git
+
+# Entre na pasta
+cd weather-app
+
+# Instale as dependências
+npm install
+
+# Rode em modo desenvolvimento
+npm run dev
+
+# Build para produção
+npm run build
